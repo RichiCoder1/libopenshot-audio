@@ -31,13 +31,9 @@
  */
 
 #include <iostream>
-#include <unistd.h>
+#include <thread>
+#include <chrono>
 #include "../JuceLibraryCode/JuceHeader.h"
-
-#if JUCE_MINGW
-#define sleep(a) Sleep(a * 1000)
-#include <windows.h>
-#endif
 
 using namespace std;
 
@@ -58,10 +54,9 @@ int main()
 	deviceManager.playTestSound();
 	for (int x = 1; x <= 5; x++) {
 		cout << "... " << x << endl;
-		sleep(1);
+        this_thread::sleep_for(chrono::seconds(1));
 	}
 
-	int id = 1;
 	cout << "before device loop" << endl;
 	for (int i = 0; i < deviceManager.getAvailableDeviceTypes().size(); ++i)
 	{
